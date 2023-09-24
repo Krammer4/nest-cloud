@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { FileUploader } from "react-drag-drop-files";
 import { useHttp } from "../hooks/useHttp";
+import { generate } from "random-words";
 
 const fileTypes = ["jpg", "png", "jpeg"];
 
@@ -26,7 +27,7 @@ function DragDrop({
 
       try {
         const response = await request(
-          "http://localhost:5000/images?title=frontendPic",
+          `http://localhost:5000/images?title=${generate(2).join(" ")}`,
           "POST",
           formData,
           {
