@@ -10,6 +10,7 @@ import { EditIcon } from "../../img/icons/EditIcon";
 import { AnimatePresence, motion } from "framer-motion";
 import { DeleteIcon } from "../../img/icons/DeleteIcon";
 import { useHttp } from "../../hooks/useHttp";
+import { useNavigate } from "react-router-dom";
 
 type Props = {
   image: Image;
@@ -18,6 +19,7 @@ type Props = {
 
 export const ImageCard = ({ image, fetchAllImages }: Props) => {
   const { getWordMonth } = useFormatDate();
+  const navigate = useNavigate();
 
   const [isLableModalOpened, setIsLableModalOpened] = useState(false);
 
@@ -32,9 +34,12 @@ export const ImageCard = ({ image, fetchAllImages }: Props) => {
 
   return (
     <div
-      className="relative group"
+      className="relative group cursor-pointer"
       onMouseEnter={() => setIsHoverable(true)}
       onMouseLeave={() => setIsHoverable(false)}
+      onClick={() => {
+        if (!isLableModalOpened) navigate(`/image/${image.id}`);
+      }}
     >
       <p className="bg-[#FCF6B1] p-1 max-w-max absolute -top-4 rounded-md right-3 z-20">
         {isHoverable ? image.title : getWordMonth(image.publishedAt.toString())}
@@ -43,12 +48,15 @@ export const ImageCard = ({ image, fetchAllImages }: Props) => {
         {/* Затемняющий фон при наведении */}
         <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-30 transition-opacity duration-300"></div>
         <img
-          className="h-full w-full object-cover object-center transition-opacity duration-300"
+          className="h-full w-full object-cover object-center transition-opacity duration-300 max-w-[350px]"
           src={`${BACKEND_URL}/uploads/${image.filename}`}
           alt={image.title}
         />
       </div>
-      <div className="absolute bottom-5 left-5 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+      <div
+        onClick={(e) => e.stopPropagation()}
+        className="absolute bottom-5 left-5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+      >
         <button
           onClick={() => downloadImage(image.filename)}
           className="flex items-center px-3 py-1 rounded-md m-1 text-[#FCF6B1]"

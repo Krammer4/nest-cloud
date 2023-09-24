@@ -26,7 +26,7 @@ export const UploadImageModal = ({
                   icon={<CrossIcon />}
                   text="Close editor"
                   onClick={(e) => {
-                    e.preventDefault();
+                    e.stopPropagation();
                     setIsUploadModalOpened(false);
                   }}
                 />

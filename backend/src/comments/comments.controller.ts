@@ -22,4 +22,9 @@ export class CommentsController {
     const { text, imageId } = createCommentDto;
     return this.commentsService.createComment(text, imageId);
   }
+
+  @Delete(':id')
+  delete(@Param('id') id: string) {
+    return this.commentsService.deleteComment(id);
+  }
 }

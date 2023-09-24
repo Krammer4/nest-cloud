@@ -11,7 +11,7 @@ function DragDrop({
   fetchAllImages,
 }: {
   children: any;
-  setIsUploadModalOpened: (bool: boolean) => void;
+  setIsUploadModalOpened?: (bool: boolean) => void;
   fetchAllImages: () => void;
 }) {
   const [file, setFile] = useState(null);
@@ -40,7 +40,7 @@ function DragDrop({
         );
 
         fetchAllImages();
-        setIsUploadModalOpened(false);
+        if (setIsUploadModalOpened) setIsUploadModalOpened(false);
       } catch (error) {
         console.error("Ошибка загрузки файла:", error);
       }

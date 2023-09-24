@@ -5,23 +5,37 @@ import { GroupedImagesList, InitialPage } from "./pages/InitialPage";
 import { Header } from "./components/Header";
 import { useHttp } from "./hooks/useHttp";
 import { groupImagesByDate } from "./utils/groupImagesByDate";
+import { ImagesProvider } from "./providers/ImagesProvider";
+import { ImagePage } from "./pages/ImagePage";
+import { NotFound } from "./pages/NotFound";
 
 function App() {
   const [isUploadModalOpened, setIsUploadModalOpened] = useState(false);
 
   return (
-    <div className="App">
-      <Header
-        isUploadModalOpened={isUploadModalOpened}
-        setIsUploadModalOpened={setIsUploadModalOpened}
-      />
-      <div className="container">
-        <InitialPage
+    <ImagesProvider>
+      <div className="App">
+        <Header
           isUploadModalOpened={isUploadModalOpened}
           setIsUploadModalOpened={setIsUploadModalOpened}
         />
+        <div className="container">
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <InitialPage
+                  isUploadModalOpened={isUploadModalOpened}
+                  setIsUploadModalOpened={setIsUploadModalOpened}
+                />
+              }
+            ></Route>
+            <Route path="/image/:id" element={<ImagePage />}></Route>
+            <Route path="*" element={<NotFound />}></Route>
+          </Routes>
+        </div>
       </div>
-    </div>
+    </ImagesProvider>
   );
 }
 

@@ -16,6 +16,9 @@ export class ImagesService {
   findAll() {
     return this.repository.find({
       relations: ['comments'],
+      order: {
+        publishedAt: 'DESC',
+      },
     });
   }
 
@@ -25,6 +28,11 @@ export class ImagesService {
         id: Number(id),
       },
       relations: ['comments'],
+      order: {
+        comments: {
+          publishedAt: 'DESC',
+        },
+      },
     });
   }
 

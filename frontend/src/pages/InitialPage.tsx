@@ -9,6 +9,8 @@ import { groupImagesByDate } from "../utils/groupImagesByDate";
 import { Carousel } from "react-responsive-carousel";
 import { InitialPageLoading } from "../components/InitialPageLoading";
 import { AnimatePresence, motion } from "framer-motion";
+import { NoImagesModal } from "../components/Modals/NoImagesModal";
+import { useImagesContext } from "../providers/ImagesProvider";
 
 export type GroupedImagesList = {
   date: string;
@@ -26,6 +28,7 @@ export const InitialPage = ({
 }: Props) => {
   const { request, loading, error } = useHttp();
   const [imageList, setImageList] = useState<GroupedImagesList[]>([]);
+  const { imagesQuantity, setImagesQuantity } = useImagesContext();
 
   const fetchAllImages = async () => {
     const fetchedImages = await request(`http://localhost:5000/images`);
@@ -33,6 +36,7 @@ export const InitialPage = ({
     const groupedImages = groupImagesByDate(fetchedImages);
     console.log(groupedImages);
     setImageList(groupedImages);
+    setImagesQuantity(fetchedImages.length);
   };
 
   useEffect(() => {
@@ -52,7 +56,7 @@ export const InitialPage = ({
           <InitialPageLoading />
         ) : imageList.length !== 0 ? (
           imageList.map((list: GroupedImagesList) => (
-            <div className="mb-[75px]">
+            <div className="mb-[5px]">
               <p className="text-graye text-3xl">{list.date}</p>
               <div className="flex flex-wrap mt-7">
                 {list.images.length !== 0 &&
@@ -70,7 +74,10 @@ export const InitialPage = ({
             </div>
           ))
         ) : (
-          <p>no images</p>
+          <NoImagesModal
+            fetchAllImages={fetchAllImages}
+            setIsUploadModalOpened={setIsUploadModalOpened}
+          />
         )}
       </div>
       {/* {isUploadModalOpened && (

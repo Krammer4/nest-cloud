@@ -1,12 +1,13 @@
 import React from "react";
 import WideImageLoader from "./Skeletons/WideImageLoader";
 import NarrowImageLoader from "./Skeletons/NarrowImageLoader";
+import TextLoader from "./Skeletons/TextLoader";
 
 export const InitialPageLoading = () => {
   return (
     <div>
       <div>
-        <h2 className="text-graye text-3xl">Сентябрь</h2>
+        <TextLoader />
         <div className="flex flex-wrap mt-7">
           <div className="mr-4">
             <WideImageLoader />
@@ -23,7 +24,7 @@ export const InitialPageLoading = () => {
         </div>
       </div>
       <div>
-        <h2 className="text-graye text-3xl">Октябрь</h2>
+        <TextLoader />
         <div className="flex flex-wrap mt-7">
           <div className="mr-4">
             <WideImageLoader />

@@ -18,7 +18,15 @@ export class CommentsService {
     });
   }
 
-  findAll() {
-    return `This action returns all comments`;
+  async deleteComment(id: string) {
+    const comment = await this.commentRepo.findOne({
+      where: {
+        id: Number(id),
+      },
+    });
+
+    if (!comment) throw new NotFoundException('Комментарий не найден');
+
+    await this.commentRepo.remove(comment);
   }
 }
