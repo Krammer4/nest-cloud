@@ -8,7 +8,6 @@ import { GreyButton } from "../components/Buttons/GreyButton";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import WideImageLoader from "../components/Skeletons/WideImageLoader";
 import ExtraBigLoader from "../components/Skeletons/ExtraBigImageLoader";
 import TextLoader from "../components/Skeletons/TextLoader";
 import axios from "axios";
@@ -119,7 +118,7 @@ export const ImagePage = () => {
           <div className="mt-10">
             <h2 className="text-2xl font-semibold">Comments:</h2>
             {image?.comments.map((comment) => (
-              <div className="flex justify-center mt-6">
+              <div key={comment.id} className="flex justify-center mt-6">
                 <CommentCard
                   text={comment.text}
                   publishedAt={comment.publishedAt}

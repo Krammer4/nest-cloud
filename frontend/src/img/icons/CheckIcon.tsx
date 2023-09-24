@@ -12,9 +12,9 @@ export const CheckIcon = () => {
       <path
         d="M5 12L10 17L20 7"
         stroke="black"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   );

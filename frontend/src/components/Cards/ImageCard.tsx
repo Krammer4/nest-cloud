@@ -9,7 +9,6 @@ import { LableChangeModal } from "../Modals/LableChangeModal";
 import { EditIcon } from "../../img/icons/EditIcon";
 import { AnimatePresence, motion } from "framer-motion";
 import { DeleteIcon } from "../../img/icons/DeleteIcon";
-import { useHttp } from "../../hooks/useHttp";
 import { useNavigate } from "react-router-dom";
 
 type Props = {
@@ -24,8 +23,6 @@ export const ImageCard = ({ image, fetchAllImages }: Props) => {
   const [isLableModalOpened, setIsLableModalOpened] = useState(false);
 
   const [isHoverable, setIsHoverable] = useState(false);
-
-  const { request, loading, error } = useHttp();
 
   const deleteImage = async (id: number) => {
     await axios.delete(`${BACKEND_URL}/images?id=${id}`);

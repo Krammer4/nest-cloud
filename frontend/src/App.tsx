@@ -1,10 +1,8 @@
 import "./App.css";
 import { useState } from "react";
 import { Routes, Route } from "react-router-dom";
-import { GroupedImagesList, InitialPage } from "./pages/InitialPage";
+import { InitialPage } from "./pages/InitialPage";
 import { Header } from "./components/Header";
-import { useHttp } from "./hooks/useHttp";
-import { groupImagesByDate } from "./utils/groupImagesByDate";
 import { ImagesProvider } from "./providers/ImagesProvider";
 import { ImagePage } from "./pages/ImagePage";
 import { NotFound } from "./pages/NotFound";

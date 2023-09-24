@@ -17,18 +17,13 @@ function DragDrop({
   const [file, setFile] = useState(null);
   const { request, loading } = useHttp();
 
-  const handleChange = (file: any) => {
-    setFile(file);
-    console.log("FILE: ", file);
-  };
-
   const handleUpload = async (file: any) => {
     if (file) {
       const formData = new FormData();
       formData.append("file", file);
 
       try {
-        const response = await request(
+        await request(
           `http://localhost:5000/images?title=${generate(2).join(" ")}`,
           "POST",
           formData,

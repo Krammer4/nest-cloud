@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { GreenUploadIcon } from "../../img/icons/GreenUploadIcon";
 import DragDrop from "../DragDrop";
 import { GreyButton } from "../Buttons/GreyButton";

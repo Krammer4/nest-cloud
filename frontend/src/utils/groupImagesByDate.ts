@@ -3,7 +3,7 @@ import { Image } from "../shema";
 import { format, parseISO } from "date-fns";
 
 export interface GroupedImages {
-  [formattedDate: string]: Image[]; // Где formattedDate - ключ типа string, а значение - массив Image[]
+  [formattedDate: string]: Image[];
 }
 
 export const groupImagesByDate = (imagesData: Image[]) => {

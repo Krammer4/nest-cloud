@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import logo from "../img/logo.png";
 import { GreyButton } from "./Buttons/GreyButton";
 import { UploadIcon } from "../img/icons/UploadIcon";

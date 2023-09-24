@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { GreenUploadIcon } from "../../img/icons/GreenUploadIcon";
-import DragDrop from "../DragDrop";
 import { useHttp } from "../../hooks/useHttp";
 import { BACKEND_URL } from "../../consts";
 import { Image } from "../../shema";
-import { useForm, Controller } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { GreyButton } from "../Buttons/GreyButton";
@@ -37,7 +35,6 @@ export const LableChangeModal = ({
 }: Props) => {
   const { request, loading, error } = useHttp();
 
-  const [isImageLoading, setIsImageLoading] = useState(false);
   const [image, setImage] = useState<Image | null>(null);
 
   //   Работа с формой
@@ -63,7 +60,6 @@ export const LableChangeModal = ({
       const changeInfo = await axios.patch(
         `${BACKEND_URL}/images?id=${imageId}&title=${newTitle}`
       );
-      console.log(changeInfo);
       fetchAllImages();
       setIsLableModalOpened(false);
     } catch (error) {

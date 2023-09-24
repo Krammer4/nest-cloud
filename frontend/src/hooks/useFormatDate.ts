@@ -1,6 +1,5 @@
 import React from "react";
-import { format, parse, parseISO } from "date-fns";
-import { ru } from "date-fns/locale";
+import { format, parseISO } from "date-fns";
 import enUS from "date-fns/esm/locale/en-US";
 
 export const useFormatDate = () => {
