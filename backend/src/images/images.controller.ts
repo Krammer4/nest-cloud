@@ -9,6 +9,7 @@ import {
   UseInterceptors,
   UploadedFile,
   Query,
+  Res,
 } from '@nestjs/common';
 import { ImagesService } from './images.service';
 import { CreateImageDto } from './dto/create-image.dto';
@@ -29,6 +30,10 @@ export class ImagesController {
   @Get(':id')
   oneImage(@Param('id') id: string) {
     return this.imagesService.findOne(id);
+  }
+  @Get('/download/:filename')
+  downloadImage(@Param('filename') filename: string, @Res() res: Response) {
+    return this.imagesService.download(filename, res);
   }
 
   @Post()

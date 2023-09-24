@@ -4,6 +4,7 @@ import { UpdateImageDto } from './dto/update-image.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { ImageEntity } from './entities/image.entity';
 import { Repository } from 'typeorm';
+import * as fs from 'fs';
 
 @Injectable()
 export class ImagesService {
@@ -59,5 +60,20 @@ export class ImagesService {
     await this.repository.update(image, {
       title: title,
     });
+  }
+
+  async download(filename, res) {
+    try {
+      const filePath = `./uploads/${filename}`;
+      const fileStream = fs.createReadStream(filePath);
+
+      res.setHeader('Content-Type', 'application/octet-stream');
+      res.setHeader('Content-Disposition', `attachment; filename=${filename}`);
+
+      fileStream.pipe(res);
+    } catch (error) {
+      console.error('Ошибка при скачивании файла', error);
+      res.status(500).send('Ошибка при скачивании файла');
+    }
   }
 }
