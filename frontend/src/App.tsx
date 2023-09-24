@@ -1,16 +1,25 @@
 import "./App.css";
+import { useState } from "react";
 import { Routes, Route } from "react-router-dom";
-import { InitialPage } from "./pages/InitialPage";
+import { GroupedImagesList, InitialPage } from "./pages/InitialPage";
 import { Header } from "./components/Header";
+import { useHttp } from "./hooks/useHttp";
+import { groupImagesByDate } from "./utils/groupImagesByDate";
 
 function App() {
+  const [isUploadModalOpened, setIsUploadModalOpened] = useState(false);
+
   return (
     <div className="App">
-      <Header />
+      <Header
+        isUploadModalOpened={isUploadModalOpened}
+        setIsUploadModalOpened={setIsUploadModalOpened}
+      />
       <div className="container">
-        <Routes>
-          <Route path="/" element={<InitialPage />} />
-        </Routes>
+        <InitialPage
+          isUploadModalOpened={isUploadModalOpened}
+          setIsUploadModalOpened={setIsUploadModalOpened}
+        />
       </div>
     </div>
   );

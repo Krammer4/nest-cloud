@@ -12,6 +12,8 @@ export class CommentEntity {
   @Column()
   publishedAt: Date;
 
-  @ManyToOne(() => ImageEntity, (image) => image.comments)
+  @ManyToOne(() => ImageEntity, (image) => image.comments, {
+    onDelete: 'CASCADE',
+  })
   image: ImageEntity;
 }

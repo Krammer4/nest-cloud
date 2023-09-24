@@ -7,15 +7,24 @@ import { ImageCard } from "../components/Cards/ImageCard";
 import { useFormatDate } from "../hooks/useFormatDate";
 import { groupImagesByDate } from "../utils/groupImagesByDate";
 import { Carousel } from "react-responsive-carousel";
+import { InitialPageLoading } from "../components/InitialPageLoading";
+import { AnimatePresence, motion } from "framer-motion";
 
-type GroupedImagesList = {
+export type GroupedImagesList = {
   date: string;
   images: Image[];
 };
 
-export const InitialPage = () => {
+type Props = {
+  isUploadModalOpened: boolean;
+  setIsUploadModalOpened: (bool: boolean) => void;
+};
+
+export const InitialPage = ({
+  setIsUploadModalOpened,
+  isUploadModalOpened,
+}: Props) => {
   const { request, loading, error } = useHttp();
-  const [isUploadModalOpened, setIsUploadModalOpened] = useState(false);
   const [imageList, setImageList] = useState<GroupedImagesList[]>([]);
 
   const fetchAllImages = async () => {
@@ -39,7 +48,9 @@ export const InitialPage = () => {
               <ImageCard image={image} />
             </div>
           ))} */}
-        {imageList.length !== 0 &&
+        {loading ? (
+          <InitialPageLoading />
+        ) : imageList.length !== 0 ? (
           imageList.map((list: GroupedImagesList) => (
             <div className="mb-[75px]">
               <p className="text-graye text-3xl">{list.date}</p>
@@ -47,18 +58,40 @@ export const InitialPage = () => {
                 {list.images.length !== 0 &&
                   list.images.map((image) => (
                     <p>
-                      <div className="mr-4">
-                        <ImageCard image={image} />
+                      <div className="mr-4 mb-7">
+                        <ImageCard
+                          image={image}
+                          fetchAllImages={fetchAllImages}
+                        />
                       </div>
                     </p>
                   ))}
               </div>
             </div>
-          ))}
+          ))
+        ) : (
+          <p>no images</p>
+        )}
       </div>
-      {isUploadModalOpened && (
+      {/* {isUploadModalOpened && (
         <UploadImageModal setIsUploadModalOpened={setIsUploadModalOpened} />
-      )}
+      )} */}
+
+      <AnimatePresence mode="wait">
+        {isUploadModalOpened && (
+          <motion.div
+            style={{ zIndex: 50 }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1, transition: { duration: 0.3 } }}
+            exit={{ opacity: 0, transition: { duration: 0.3 } }}
+          >
+            <UploadImageModal
+              setIsUploadModalOpened={setIsUploadModalOpened}
+              fetchAllImages={fetchAllImages}
+            />
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };

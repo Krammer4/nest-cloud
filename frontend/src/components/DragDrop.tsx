@@ -8,9 +8,11 @@ const fileTypes = ["jpg", "png", "jpeg"];
 function DragDrop({
   children,
   setIsUploadModalOpened,
+  fetchAllImages,
 }: {
   children: any;
   setIsUploadModalOpened: (bool: boolean) => void;
+  fetchAllImages: () => void;
 }) {
   const [file, setFile] = useState(null);
   const { request, loading } = useHttp();
@@ -37,7 +39,7 @@ function DragDrop({
           }
         );
 
-        console.log("Ответ сервера:", response.data);
+        fetchAllImages();
         setIsUploadModalOpened(false);
       } catch (error) {
         console.error("Ошибка загрузки файла:", error);

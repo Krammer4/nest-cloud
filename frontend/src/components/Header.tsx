@@ -2,7 +2,16 @@ import React from "react";
 import logo from "../img/logo.png";
 import { GreyButton } from "./Buttons/GreyButton";
 import { UploadIcon } from "../img/icons/UploadIcon";
-export const Header = () => {
+
+type Props = {
+  isUploadModalOpened: boolean;
+  setIsUploadModalOpened: (bool: boolean) => void;
+};
+
+export const Header = ({
+  isUploadModalOpened,
+  setIsUploadModalOpened,
+}: Props) => {
   return (
     <div className="p-6 border-b-graye border-solid border-b-[1px]">
       <div className="flex justify-between items-center">
@@ -13,7 +22,7 @@ export const Header = () => {
         <GreyButton
           icon={<UploadIcon />}
           text="Upload Image"
-          onClick={() => console.log("click")}
+          onClick={() => setIsUploadModalOpened(true)}
         />
       </div>
     </div>

@@ -9,7 +9,7 @@ type Props = {
   fetchAllImages: () => void;
 };
 
-export const UploadImageModal = ({
+export const NoImagesModal = ({
   setIsUploadModalOpened,
   fetchAllImages,
 }: Props) => {

@@ -15,6 +15,6 @@ export class ImageEntity {
   @Column()
   publishedAt: Date;
 
-  @OneToMany(() => CommentEntity, (comment) => comment.image)
+  @OneToMany(() => CommentEntity, (comment) => comment.image, { cascade: true })
   comments: CommentEntity[];
 }
