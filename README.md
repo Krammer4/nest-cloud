@@ -14,6 +14,7 @@
 - Random-words (Генерация названия картинки)
 - axios
 - date-fns (Форматирование даты)
+- EsLint
 
 2) Backend:
 - NestJS
