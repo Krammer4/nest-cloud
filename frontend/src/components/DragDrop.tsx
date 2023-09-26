@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { FileUploader } from "react-drag-drop-files";
 import { useHttp } from "../hooks/useHttp";
 import { generate } from "random-words";
+import { BACKEND_URL } from "src/consts";
 
 const fileTypes = ["jpg", "png", "jpeg"];
 
@@ -17,14 +18,18 @@ function DragDrop({
   const [file, setFile] = useState(null);
   const { request, loading } = useHttp();
 
-  const handleUpload = async (file: any) => {
-    if (file) {
+  const handleUpload = async (files: any[]) => {
+    const filesArray = Array.from(files);
+    if (filesArray && filesArray.length > 0) {
       const formData = new FormData();
-      formData.append("file", file);
+      filesArray.forEach((file) => formData.append("files", file));
+      const titles = Array(filesArray.length)
+        .fill("")
+        .map(() => generate(2).join(" "));
 
       try {
         await request(
-          `http://localhost:5000/images?title=${generate(2).join(" ")}`,
+          `${BACKEND_URL}/images?titles=${JSON.stringify(titles)}`,
           "POST",
           formData,
           {
@@ -49,6 +54,8 @@ function DragDrop({
         handleChange={handleUpload}
         name="file"
         types={fileTypes}
+        multiple={true}
+        fileOrFiles="Array"
       />
     </div>
   );

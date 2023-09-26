@@ -10,11 +10,12 @@ import {
   UploadedFile,
   Query,
   Res,
+  UploadedFiles,
 } from '@nestjs/common';
 import { ImagesService } from './images.service';
 import { CreateImageDto } from './dto/create-image.dto';
 import { UpdateImageDto } from './dto/update-image.dto';
-import { FileInterceptor } from '@nestjs/platform-express';
+import { FileInterceptor, FilesInterceptor } from '@nestjs/platform-express';
 import { fileStorage } from './storage';
 import { ApiTags, ApiConsumes, ApiBody } from '@nestjs/swagger/dist';
 
@@ -38,7 +39,7 @@ export class ImagesController {
 
   @Post()
   @UseInterceptors(
-    FileInterceptor('file', {
+    FilesInterceptor('files', 10, {
       storage: fileStorage,
     }),
   )
@@ -47,18 +48,27 @@ export class ImagesController {
     schema: {
       type: 'object',
       properties: {
-        file: {
-          type: 'string',
-          format: 'binary',
+        files: {
+          type: 'array',
+          items: {
+            type: 'string',
+            format: 'binary',
+          },
+        },
+        titles: {
+          type: 'array',
+          items: {
+            type: 'string',
+          },
         },
       },
     },
   })
   create(
-    @UploadedFile() file: Express.Multer.File,
-    @Query('title') title: string,
+    @UploadedFiles() files: Express.Multer.File[],
+    @Query('titles') titles: string[],
   ) {
-    return this.imagesService.create(file, title);
+    return this.imagesService.create(files, titles);
   }
 
   @Delete()

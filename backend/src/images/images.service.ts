@@ -36,12 +36,13 @@ export class ImagesService {
     });
   }
 
-  create(file: Express.Multer.File, title: string) {
-    return this.repository.save({
+  create(files: Express.Multer.File[], titles: string[]) {
+    const images = files.map((file, index) => ({
       filename: file.filename,
       publishedAt: new Date(),
-      title: title,
-    });
+      title: titles[index],
+    }));
+    return this.repository.save(images);
   }
 
   async remove(id: string) {
