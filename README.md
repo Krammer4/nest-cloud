@@ -29,3 +29,10 @@
 - TypeORM
 
 --------------------------------------------------------------------
+
+To launch app:
+
+1) Frontend
+   - ./frontend -> npm start
+2) Backend
+   - docker-compose up (in root directory)
