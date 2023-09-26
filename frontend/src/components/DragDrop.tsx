@@ -49,7 +49,6 @@ function DragDrop({
         handleChange={handleUpload}
         name="file"
         types={fileTypes}
-        // multiple={true}
       />
     </div>
   );
