@@ -31,8 +31,9 @@
 --------------------------------------------------------------------
 
 To launch app:
-
-1) Frontend
-   - ./frontend -> npm start
-2) Backend
    - docker-compose up (in root directory)
+
+OR
+
+- in backend directory npm run start:dev
+- in frontend directory npm start
