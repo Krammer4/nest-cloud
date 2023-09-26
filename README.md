@@ -5,7 +5,10 @@
 - React
 - TypeScript
 - React-router-dom
-- TailwindCSS 
+- TailwindCSS
+- Docker
+- Docker Compose
+- Nginx
 - React-hook-form (Работа с формами)
 - yup (Валидация форм)
 - React-content-loader (Лоадеры контента)
@@ -15,6 +18,7 @@
 - axios
 - date-fns (Форматирование даты)
 - EsLint
+
 
 2) Backend:
 - NestJS
