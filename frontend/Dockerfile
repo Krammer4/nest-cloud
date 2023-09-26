@@ -1,6 +1,8 @@
-FROM node:latest
+FROM node
 
 WORKDIR /app
+
+RUN npm install -g npm@latest
 
 COPY package*.json ./
 

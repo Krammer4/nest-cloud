@@ -10,18 +10,13 @@ services:
     volumes:
       - ./backend/uploads:/app/uploads
 
-  # frontend:
-  #   build:
-  #     context: ./frontend
-  #   ports:
-  #     - "3000:3000"
-  #   environment:
-  #     DOCKER: "true"
-  #     REACT_APP_BACKEND_URL: "http://backend:5000"
-  #   depends_on:
-  #     - postgres
-  #   volumes:
-  #     - ./frontend:/app
+  frontend:
+    build:
+      context: ./frontend # Указывает на папку с Dockerfile для фронтенда
+    ports:
+      - "3000:3000" # Прокидываем порт фронтенда
+    depends_on:
+      - backend # Зависимость от бэкенда (если нужно)
 
   postgres:
     image: postgres:latest
