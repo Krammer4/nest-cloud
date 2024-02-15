@@ -12,11 +12,11 @@ services:
 
   frontend:
     build:
-      context: ./frontend # Указывает на папку с Dockerfile для фронтенда
+      context: ./frontend 
     ports:
-      - "3000:3000" # Прокидываем порт фронтенда
+      - "3000:3000" 
     depends_on:
-      - backend # Зависимость от бэкенда (если нужно)
+      - backend 
 
   postgres:
     image: postgres:latest
